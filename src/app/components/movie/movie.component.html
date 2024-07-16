@@ -1,0 +1,35 @@
+<ng-container *ngIf="(isLoading$ | async) === false">
+  <mat-card class="example-card" *ngIf="movie$ | async as movie">
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>{{ movie.properties.title }}</mat-card-title>
+        <mat-card-subtitle
+          >Release date: {{ movie.properties.release_date }}</mat-card-subtitle
+        >
+        <mat-card-subtitle
+          >Director: {{ movie.properties.director }}</mat-card-subtitle
+        >
+        <mat-card-subtitle
+          >Producer: {{ movie.properties.producer }}</mat-card-subtitle
+        >
+        <mat-card-subtitle
+          >Characters:
+          <mat-chip-set
+            aria-label="Character selection"
+            *ngIf="
+              movie.properties.characters | characterByUrl | async as characters
+            ">
+            <mat-chip *ngFor="let character of characters; trackBy: trackByFn"
+              ><a [routerLink]="['/characters', character?.uid]">{{
+                character?.properties?.name
+              }}</a></mat-chip
+            >
+          </mat-chip-set>
+        </mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content>
+      {{ movie.properties.opening_crawl }}
+    </mat-card-content>
+  </mat-card>
+</ng-container>

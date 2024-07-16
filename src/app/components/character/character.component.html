@@ -1,0 +1,42 @@
+<mat-card
+  class="example-card"
+  *ngIf="(isLoading$ | async) === false && (character$ | async) as character">
+  <mat-card-header>
+    <mat-card-title-group>
+      <mat-card-title>{{ character.properties.name }}</mat-card-title>
+      <mat-card-subtitle
+        >Height: {{ character.properties.height }}</mat-card-subtitle
+      >
+      <mat-card-subtitle
+        >Mass: {{ character.properties.mass }}</mat-card-subtitle
+      >
+      <mat-card-subtitle
+        >Hair color: {{ character.properties.hair_color }}</mat-card-subtitle
+      >
+      <mat-card-subtitle
+        >Skin color: {{ character.properties.skin_color }}</mat-card-subtitle
+      >
+      <mat-card-subtitle
+        >Eye color: {{ character.properties.eye_color }}</mat-card-subtitle
+      >
+      <mat-card-subtitle
+        >Birth year: {{ character.properties.birth_year }}</mat-card-subtitle
+      >
+      <mat-card-subtitle
+        >Gender: {{ character.properties.gender }}</mat-card-subtitle
+      >
+      <mat-card-subtitle
+        >Movies:
+        <mat-chip-set
+          aria-label="Movie selection"
+          *ngIf="character.properties.url | movieByUrl | async as movies">
+          <mat-chip *ngFor="let movie of movies; trackBy: trackByFn"
+            ><a [routerLink]="['/movies', movie.uid]">{{
+              movie.title
+            }}</a></mat-chip
+          >
+        </mat-chip-set>
+      </mat-card-subtitle>
+    </mat-card-title-group>
+  </mat-card-header>
+</mat-card>
